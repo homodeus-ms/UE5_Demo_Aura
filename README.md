@@ -5,3 +5,6 @@ Dedicated Server, AWS 연동까지 작업한 포트폴리오입니다.**
 
 (https://youtu.be/4x9iSUawjKQ)
 
+Udemy, Stephen Ulibarri님 강의를 참고했습니다.
+
+
