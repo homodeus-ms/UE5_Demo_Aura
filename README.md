@@ -1,6 +1,6 @@
-# Aura RPG - Unreal Engine 5.5 기반 멀티플레이 RPG 프로젝트
+# Aura RPG - Unreal Engine 5.5 기반 멀티플레이 RPG
 
-이 프로젝트는 언리얼 엔진 5.5에서 `Gameplay Ability System (GAS)`과 `Dedicated Server`, `AWS 연동`, `UI 및 AI 시스템`, `레벨 스트리밍`을 통합하여 만든 멀티플레이 RPG 게임입니다.
+이 프로젝트는 언리얼 엔진 5.5에서 `Gameplay Ability System (GAS)`과 `Dedicated Server`, `AWS 연동`, `UI 및 AI 시스템`, `레벨 스트리밍`을 통합하여 만든 멀티플레이 RPG 게임 포트폴리오입니다.
 
 Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행하였으며, 그 위에 자체 시스템을 확장하여 제작했습니다.
 
@@ -8,11 +8,29 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 ---
 
+## 설계
+
+- **Low Coupling**
+  - 모듈과 클래스 간 가능한 단방향 참조
+  - 인터페이스 사용 (`AttributeSet → IPlayerInterface` 등)
+
+- **MVC UI 구조**
+  - 데이터 → 컨트롤러 → UI 바인딩
+  - 델리게이트 및 브로드캐스트를 통한 변화 전달
+
+- **확장성 있는 GAS 설계**
+  - 모든 GA는 상속 기반으로 분리 구성
+  - `GameplayTag`와 `DataAsset`로 유연한 구성 가능
+
+---
+
+---
+
 ## 프로젝트 구조 및 모듈
 
 ### 1. Aura 게임 모듈
-- GAS 기반 능력 시스템
-- UI 시스템 (MVC 패턴 적용)
+- GAS 기반 Ability 시스템
+- UI 시스템 (MVC 패턴)
 - Enhanced Input 사용
 - AI 및 내비게이션
 - 레벨 스트리밍 및 스킬 시스템 등 전반적인 게임 기능 포함
@@ -26,14 +44,14 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 ## GAS 시스템 구성
 
-### GameplayTag 및 DataAsset 기반 구성
-- 캐릭터 클래스, 스킬, 어트리뷰트 정보는 모두 `GameplayTag`와 `DataAsset`을 통해 정의되어 있어 커스터마이징이 용이합니다.
+### GameplayTag 및 DataAsset 기반으로 구성
+- 캐릭터 클래스, 스킬, Attribute 정보는 모두 `GameplayTag`와 `DataAsset`을 통해 정의되어 있어 확장이 용이합니다.
 
 ### Attribute 시스템
-- `PrimaryAttribute`: Strength, Intelligence, Vigor 등 캐릭터 기본 능력
-- `SecondaryAttribute`: MaxHealth, MaxMana 등은 `PrimaryAttribute`를 기반으로 계산됩니다.
+- `PrimaryAttribute`: Strength, Intelligence, Resilience, Vigor 등 캐릭터 기본 능력
+- `SecondaryAttribute`: Armor, BlockChange, CriticalHit, MaxHealth, MaxMana 등은 `PrimaryAttribute`를 기반으로 계산됩니다.
 - `MaxHealth`와 `MaxMana`는 `ModMagnitudeCalculation (MMC)` 클래스를 통해 동적으로 계산됩니다.
-- 플레이어 패시브 스킬(`GA_ListenForEvent`)은 이벤트 기반으로 특정 태그를 감지하고 `SetByCaller` 방식으로 속성값을 적용합니다.
+- 플레이어의 패시브 스킬(`GA_ListenForEvent`)은 이벤트 기반으로 특정 태그를 감지하고 `SetByCaller` 방식으로 속성값을 적용합니다.
 
 ---
 
@@ -42,9 +60,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 ### 구현된 스킬
 
 #### 액티브
-- FireBolt: 기본 화염 투사체 스킬, 다수 발사 및 타겟 추적 기능 포함
-- Electrocute: 연쇄 번개, 스턴 디버프 포함
-- ArcaneShard: 선택한 지역에 마법 조각 생성, 범위 피해
+- FireBolt: FireBolt 스킬, 레벨업시 발사 숫자가 증가 및 타겟 추적 기능 포함, 화염 디퍼브(일정시간 동안 일정한 지속 데미지)
+- Electrocute: Target으로의 지속 데미지 Beam을 생성, 스턴 디버프 포함
+- ArcaneShard: 선택한 지역에 마법 조각을 생성, 범위 피해
 
 #### 패시브
 - Siphon: 피해량에 따라 체력/마나 흡수
@@ -52,10 +70,10 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 #### 적 몬스터 스킬
 - 근접 공격, 원거리 공격, FireBolt, 소환 스킬 등 다양한 형태 구현
 
-### 스킬 발동 흐름
+### 스킬 발동의 흐름 (예: FireBolt)
 1. 키 입력 → 태그 전달 → `ASC`가 해당 GA 활성화
-2. `GA` 내부에서 타겟 탐색, 몽타쥬 재생, 태그 대기, 투사체 발사
-3. Projectile이 충돌 시 DamageEffect를 생성하고 적용
+2. `GA` 내부에서 타겟 탐색, 몽타쥬 재생, 태그 대기, 몽타쥬 재생 중 이벤트 태그 전달, 태그를 받아서 Projectile 생성, 발사
+3. Projectile이 충돌 시 DamageEffect를 생성하고 적용함
 4. 데미지 계산은 ExecCalc 클래스에서 수행
 
 ---
@@ -63,7 +81,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 ## 데미지 및 전투 시스템
 
 ### Damage 흐름
-- 투사체 생성 시 `FDamageEffectParams`를 통해 소스/타겟 정보, 데미지, 버프/디버프 정보를 전달
+- 투사체 생성 시 `FDamageEffectParams`를 통해 소스/타겟 정보, 데미지, 버프/디버프 정보를 전달 (UAuraDamageGiveGA 클래스)
 - 충돌 시 `GESpec`을 생성하고 TargetASC에 적용
 - ExecCalc 클래스에서:
   - 기본 데미지 계산
@@ -91,7 +109,6 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 소비형 아이템은 단축키로 사용 가능하며 GE로 자신에게 효과 적용
 - 데이터는 `AuraPlayerState`에서 관리
 - UI는 MVC 패턴: `DataClass → Controller → UIWidget` 구조
-- 아이템 수량 변화는 OnRep → 브로드캐스트 → 컨트롤러 → UI 반영 순으로 전달됨
 
 ---
 
@@ -118,9 +135,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 ## 맵 전환 및 스트리밍 시스템
 
 - `MapEntrance` 오버랩 시 서버에서 다음 맵을 비동기 로드
-- `PlayerStartTag`에 따라 플레이어 위치 지정
-- 클라이언트에는 RPC로 해당 맵 로드 요청
-- 기존 맵은 자동으로 언로드 처리
+- `PlayerStartTag`에 따라 플레이어 위치 이동, Client RPC를 호출
+- 클라이언트에서 해당 맵을 로드
+- 로드 완료되면 이전맵을 언로드
 
 ---
 
@@ -128,8 +145,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 - `SavePoint`: 오버랩 시 위치 저장
 - `MapEntrance`: 맵 이동 + 위치 저장
-- 사망 시 마지막 저장 위치로 리스폰
 - 서버가 AWS를 통해 저장 요청
+- 플레이어 사망 시 PlayerSession을 만들고 데이터를 로드하는 흐름을 다시 따라감 (마지막 저장 위치로 리스폰)
 
 ---
 
@@ -138,8 +155,10 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 ### 사용 서비스
 - Cognito (회원가입, 로그인, 세션 관리)
 - DynamoDB (데이터 저장 및 불러오기)
+- AWS Lambda 생성
+- EC2 플릿 생성 후 테스트
 
-### 테이블 구성
+### DynamoDB 테이블 구성
 - `UserInfo`, `PlayerData`, `Attributes`, `Inventory`, `Skills`
 - PrimaryKey는 `Cognito`의 `sub` 값을 사용
 
@@ -153,25 +172,10 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 1. SignUp + Confirm → `sub` 생성 및 DynamoDB에 초기값 저장
 2. SignIn → 위치 및 레벨 정보 불러오기
 3. Join → GameSession 및 PlayerSession 생성 → 서버 접속
-4. 플레이 중 CheckPoint 시점에 SaveManager를 통해 AWS에 저장
+4. ServerMap의 GameMode에서 LoadData
+5. 플레이 중 CheckPoint 시점에 SaveManager를 통해 AWS에 저장
 
----
 
-## 설계 원칙
-
-- **Low Coupling**
-  - 모듈 간 단방향 참조
-  - 인터페이스 사용 (`AttributeSet → IPlayerInterface` 등)
-
-- **MVC UI 구조**
-  - 데이터 → 컨트롤러 → UI 바인딩
-  - 델리게이트 및 브로드캐스트를 통한 변화 전달
-
-- **확장성 있는 GAS 설계**
-  - 모든 GA는 상속 기반으로 분리 구성
-  - `GameplayTag`와 `DataAsset`로 유연한 구성 가능
-
----
 
 ## 요약 정보
 
