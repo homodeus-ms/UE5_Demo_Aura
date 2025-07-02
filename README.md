@@ -2,6 +2,7 @@
 
 이 프로젝트는 언리얼 엔진 5.5에서 `Gameplay Ability System (GAS)`과 
 
+
 `Dedicated Server`, `AWS 연동`, `UI 및 AI 시스템`, `레벨 스트리밍`을 통합하여 만든 멀티플레이 RPG 게임 포트폴리오입니다.
 
 Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행하였으며, 그 위에 자체 시스템을 확장하여 제작했습니다.
