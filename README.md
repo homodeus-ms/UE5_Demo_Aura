@@ -11,7 +11,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 ---
 
-## 설계
+## 설계 방향
 
 - **Low Coupling**
   - 모듈과 클래스 간 가능한 단방향 참조
