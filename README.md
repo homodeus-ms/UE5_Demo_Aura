@@ -215,6 +215,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 서버가 AWS를 통해 저장 요청
 - 플레이어 사망 시 PlayerSession을 만들고 데이터를 로드하는 흐름을 다시 따라감 (마지막 저장 위치로 리스폰)
 
+</br>
+</br>
+
 ---
 
 ## AWS 연동 구조
@@ -229,6 +232,25 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - `UserInfo`, `PlayerData`, `Attributes`, `Inventory`, `Skills`
 - PrimaryKey는 `Cognito`의 `sub` 값을 사용
 
+</br>
+
+#### Table 예
+<img src="README_Images/AWS/Tables.jpg" width="60%" />
+
+</br>
+
+#### PlayerInfo Data 예
+<img src="README_Images/AWS/TB_Attributes.jpg" width="60%" />
+
+</br>
+
+#### Skill Data 예
+<img src="README_Images/AWS/TB_Skill.jpg" width="60%" />
+
+</br>
+
+</br>
+
 ### 주요 매니저 클래스
 - `HTTPRequestManager`: HTTP 요청/응답 처리
 - `PortalManager`: 회원가입, 로그인, 이메일 인증
@@ -241,6 +263,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 3. Join → GameSession 및 PlayerSession 생성 → 서버 접속
 4. ServerMap의 GameMode에서 LoadData
 5. 플레이 중 CheckPoint 시점에 SaveManager를 통해 AWS에 저장
+
+</br>
+</br>
 
 
 
