@@ -62,6 +62,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 <img src="README_Images/Data-GameMode/DA_CharacterClassInfo.jpg" width="85%" />
 
+</br>
+</br>
 
 ### Attribute 시스템
 - `PrimaryAttribute`: Strength, Intelligence, Resilience, Vigor 등 캐릭터 기본 능력
@@ -69,9 +71,12 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - `MaxHealth`와 `MaxMana`는 `ModMagnitudeCalculation (MMC)` 클래스를 통해 동적으로 계산됩니다.
 - 플레이어의 패시브 스킬(`GA_ListenForEvent`)은 이벤트 기반으로 특정 태그를 감지하고 `SetByCaller` 방식으로 속성값을 적용합니다.
 
+</br>
+
 #### Attribute
 <img src="README_Images/Attribute/AttributeInfo.jpg" width="80%" />
 
+</br>
 
 
 ---
@@ -125,7 +130,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 </br>
 
-#### DamegeEffectParameter 구조체 예
+#### DamegeEffectParameter를 통해 전달하는 정보 예
 <img src="README_Images/FireBolt 전달방식/VS_DamageEffectParams.jpg" width="70%" />
 
 </br>
@@ -135,7 +140,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 ## 레벨업 및 경험치 시스템
 
-- 몬스터 처치 → `XpReward` 태그를 `GA_ListenForEvent` 에 전달
+- AuraPlayerState 클래스에서 레벨, XP, AttributePoint, SpellPoint등을 관리
+- 몬스터 처치 → (AttributeSet 클래스에서) `XpReward` 태그를 `GA_ListenForEvent` 에 전달
 - 경험치 누적 → MaxXP 도달 시 레벨업
 - 레벨업시
   - `DA_LevelUpInfo`에 정의된 데이터 기반으로 `AttributePoint`, `SpellPoint` 지급
@@ -144,7 +150,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 </br>
 
 #### ListenForEvent 예
-<img src="README_Images/추가/ListenForEvent.jpg" width="80%" />
+<img src="README_Images/추가/ListenForEvent.jpg" width="90%" />
 
 </br>
 
@@ -155,10 +161,12 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 아이템 유형: 소비형(획득 + 상정구매), 컬렉션형
 - 아이템 획득 경로: 몬스터 처치, 보스 처치 후 상자 생성, 상점 구입
 - 소비형 아이템은 단축키로 사용 가능하며 GE로 자신에게 효과 적용
-- 데이터는 `AuraPlayerState 클래스`에서 관리
+- 아이템 데이터도 `AuraPlayerState 클래스`에서 관리
 
 #### Store Widget
-<img src="README_Images/추가/Store.jpg" width="40%" />
+<img src="README_Images/추가/Store.jpg" width="50%" />
+
+</br>
 
 
 ---
@@ -170,6 +178,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
   - Controller는 데이터의 변화를 Listen하고 UI 위젯에 전달
   - `AuraAttributeSet → AttributeMenuWidgetController → AttributeMenuWidget`
   - UI에서 버튼 클릭 → Controller 함수 호출 → Data 처리 → 브로드캐스트 → 다시 UI에 반영
+
+</br>
 
 ---
 
