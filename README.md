@@ -7,7 +7,11 @@
 
 Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행하였으며, 그 위에 자체 시스템을 확장하여 제작했습니다.
 
+</br>
+
 플레이 영상: [https://youtu.be/4x9iSUawjKQ](https://youtu.be/4x9iSUawjKQ)
+
+</br>
 
 ---
 
@@ -48,9 +52,16 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 ### GameplayTag 및 DataAsset 기반으로 구성
 - 캐릭터 클래스, 스킬, Attribute 정보는 모두 `GameplayTag`와 `DataAsset`을 통해 정의되어 있어 확장이 용이합니다.
 
-#### Data 구성 예
+### Data 구성 예
+
+#### DA_AbilityInfo
+
 <img src="README_Images/Data-GameMode/DA_AbilityInfo.jpg" width="70%" />
+
+#### DA_CharacterClassInfo
+
 <img src="README_Images/Data-GameMode/DA_CharacterClassInfo.jpg" width="70%" />
+
 
 ### Attribute 시스템
 - `PrimaryAttribute`: Strength, Intelligence, Resilience, Vigor 등 캐릭터 기본 능력
@@ -91,7 +102,10 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 원하는 키에 매핑해서 장착후 사용가능
 
 #### 스킬 장착 예
+<img src="README_Images/추가/img_SkillEquiped.jpg" width="50%" />
 
+</br>
+</br>
 
 ---
 
@@ -109,7 +123,12 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 - 계산된 결과는 `AttributeSet::PostExecute`에서 적용되며 이때 HitResult, Knockback, Die 처리가 이뤄집니다.
 
-#### DamegeEffectParameter 
+</br>
+
+#### DamegeEffectParameter 구조체 예
+<img src="README_Images/FireBolt 전달방식/VS_DamageEffectParams.jpg" width="70%" />
+
+</br>
 
 
 ---
@@ -122,8 +141,12 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
   - `DA_LevelUpInfo`에 정의된 데이터 기반으로 `AttributePoint`, `SpellPoint` 지급
   - MMC 클래스가 레벨 기반으로 MaxHealth, MaxMana 재계산
 
-#### ListenForEvent 예
+</br>
 
+#### ListenForEvent 예
+<img src="README_Images/추가/ListenForEvent.jpg" width="80%" />
+
+</br>
 
 ---
 
@@ -135,7 +158,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 데이터는 `AuraPlayerState 클래스`에서 관리
 
 #### Store Widget
-
+<img src="README_Images/추가/Store.jpg" width="50%" />
 
 
 ---
@@ -160,6 +183,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 행동: 이동, 대기, 근거리/원거리 공격, 소환 등
 
 #### BT Tree 예
+<img src="README_Images/AI/img_BehaviorTree1.jpg" width="80%" />
+
+</br>
 
 ---
 
