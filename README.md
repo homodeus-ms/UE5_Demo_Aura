@@ -29,6 +29,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
   - 모든 GA는 상속 기반으로 분리 구성
   - `GameplayTag`와 `DataAsset`로 유연한 구성 가능
 
+</br>
+
 ---
 
 ## 프로젝트 구조 및 모듈
@@ -44,6 +46,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - AWS Cognito 및 DynamoDB 연동
 - Player 데이터의 저장/불러오기 기능
 - AWS Gamelift와의 세션 통신 처리
+
+</br>
 
 ---
 
@@ -206,6 +210,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 클라이언트에서 해당 맵을 로드
 - 로드 완료되면 이전맵을 언로드
 
+</br>
+
 ---
 
 ## CheckPoint 및 세이브 시스템
@@ -215,6 +221,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 서버가 AWS를 통해 저장 요청
 - 플레이어 사망 시 PlayerSession을 만들고 데이터를 로드하는 흐름을 다시 따라감 (마지막 저장 위치로 리스폰)
 
+</br>
 </br>
 </br>
 
