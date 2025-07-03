@@ -15,7 +15,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 - **Low Coupling**
   - 모듈과 클래스 간 가능한 단방향 참조
-  - 인터페이스 사용 (`AttributeSet → IPlayerInterface` 등)
+  - 인터페이스 사용 (예: AttributeSet에서 CharacterAura클래스에 접근할 때 `AttributeSet → IPlayerInterface` 등)
 
 - **MVC UI 구조**
   - 데이터 → 컨트롤러 → UI 바인딩
@@ -81,8 +81,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 ## 데미지 및 전투 시스템
 
-### Damage 흐름
-- 투사체 생성 시 `FDamageEffectParams`를 통해 소스/타겟 정보, 데미지, 버프/디버프 정보를 전달 (UAuraDamageGiveGA 클래스)
+### Damage 흐름 (예: FireBolt)
+- Projectile 생성 시 `FDamageEffectParams`를 통해 소스/타겟 정보, 데미지, 버프/디버프 정보등을 전달함
+- 타겟팅 계산 - UAuraTagertedGA 클래스, 데미지 계산 - UAuraDamageGiveGA 클래스 등
 - 충돌 시 `GESpec`을 생성하고 TargetASC에 적용
 - ExecCalc 클래스에서:
   - 기본 데미지 계산
@@ -90,35 +91,36 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
   - 크리티컬, 상태 이상 확률 적용
   - RadialDamage 및 디버프 확률 적용
 
-- 최종 데미지는 `AttributeSet::PostExecute`에서 적용되며 이때 HitResult, Knockback, Die 처리까지 이뤄짐
+- 계산된 결과는 `AttributeSet::PostExecute`에서 적용되며 이때 HitResult, Knockback, Die 처리가 이뤄집니다.
 
 ---
 
 ## 레벨업 및 경험치 시스템
 
-- 몬스터 처치 → `XpReward` 태그를 통해 `GA_ListenForEvent` 발동
+- 몬스터 처치 → `XpReward` 태그를 `GA_ListenForEvent` 에 전달
 - 경험치 누적 → MaxXP 도달 시 레벨업
-- `DA_LevelUpInfo`에 정의된 데이터 기반으로 `AttributePoint`, `SpellPoint` 지급
-- MMC 클래스가 레벨 기반으로 MaxHealth, MaxMana 재계산 수행
+- 레벨업시
+  - `DA_LevelUpInfo`에 정의된 데이터 기반으로 `AttributePoint`, `SpellPoint` 지급
+  - MMC 클래스가 레벨 기반으로 MaxHealth, MaxMana 재계산
 
 ---
 
 ## 인벤토리 및 아이템 시스템
 
-- 아이템 유형: 소비형, 컬렉션형, 상점 구매 가능 아이템
+- 아이템 유형: 소비형(획득 + 상정구매), 컬렉션형
 - 아이템 획득 경로: 몬스터 처치, 보스 처치 후 상자 생성, 상점 구입
 - 소비형 아이템은 단축키로 사용 가능하며 GE로 자신에게 효과 적용
-- 데이터는 `AuraPlayerState`에서 관리
-- UI는 MVC 패턴: `DataClass → Controller → UIWidget` 구조
+- 데이터는 `AuraPlayerState 클래스`에서 관리
 
 ---
 
 ## UI 시스템
 
 - 모든 UI는 MVC 패턴으로 관리됩니다.
+- 예: AttributeMenu
   - Controller는 데이터의 변화를 Listen하고 UI 위젯에 전달
-  - 예: `AuraAttributeSet → AttributeMenuWidgetController → AttributeMenuWidget`
-- UI에서 버튼 클릭 → Controller 함수 호출 → Data 처리 → 브로드캐스트 → UI 반영
+  - `AuraAttributeSet → AttributeMenuWidgetController → AttributeMenuWidget`
+  - UI에서 버튼 클릭 → Controller 함수 호출 → Data 처리 → 브로드캐스트 → 다시 UI에 반영
 
 ---
 
