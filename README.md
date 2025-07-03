@@ -56,11 +56,11 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 #### DA_AbilityInfo
 
-<img src="README_Images/Data-GameMode/DA_AbilityInfo.jpg" width="70%" />
+<img src="README_Images/Data-GameMode/DA_AbilityInfo.jpg" width="85%" />
 
 #### DA_CharacterClassInfo
 
-<img src="README_Images/Data-GameMode/DA_CharacterClassInfo.jpg" width="70%" />
+<img src="README_Images/Data-GameMode/DA_CharacterClassInfo.jpg" width="85%" />
 
 
 ### Attribute 시스템
@@ -70,7 +70,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 플레이어의 패시브 스킬(`GA_ListenForEvent`)은 이벤트 기반으로 특정 태그를 감지하고 `SetByCaller` 방식으로 속성값을 적용합니다.
 
 #### Attribute
-<img src="README_Images/Attribute/AttributeInfo.jpg" width="70%" />
+<img src="README_Images/Attribute/AttributeInfo.jpg" width="80%" />
 
 
 
@@ -158,7 +158,7 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 데이터는 `AuraPlayerState 클래스`에서 관리
 
 #### Store Widget
-<img src="README_Images/추가/Store.jpg" width="50%" />
+<img src="README_Images/추가/Store.jpg" width="40%" />
 
 
 ---
