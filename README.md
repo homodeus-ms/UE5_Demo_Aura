@@ -48,11 +48,20 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 ### GameplayTag 및 DataAsset 기반으로 구성
 - 캐릭터 클래스, 스킬, Attribute 정보는 모두 `GameplayTag`와 `DataAsset`을 통해 정의되어 있어 확장이 용이합니다.
 
+#### Data 구성 예
+<img src="README_Images/Data-GameMode/DA_AbilityInfo.jpg" width="70%" />
+<img src="README_Images/Data-GameMode/DA_CharacterClassInfo.jpg" width="70%" />
+
 ### Attribute 시스템
 - `PrimaryAttribute`: Strength, Intelligence, Resilience, Vigor 등 캐릭터 기본 능력
 - `SecondaryAttribute`: Armor, BlockChange, CriticalHit, MaxHealth, MaxMana 등은 `PrimaryAttribute`를 기반으로 계산됩니다.
 - `MaxHealth`와 `MaxMana`는 `ModMagnitudeCalculation (MMC)` 클래스를 통해 동적으로 계산됩니다.
 - 플레이어의 패시브 스킬(`GA_ListenForEvent`)은 이벤트 기반으로 특정 태그를 감지하고 `SetByCaller` 방식으로 속성값을 적용합니다.
+
+#### Attribute
+<img src="README_Images/Attribute/AttributeInfo.jpg" width="70%" />
+
+
 
 ---
 
@@ -77,6 +86,13 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 3. Projectile이 충돌 시 DamageEffect를 생성하고 적용함
 4. 데미지 계산은 ExecCalc 클래스에서 수행
 
+### 스킬 포인트와 스킬 장착
+- 스킬 포인트를 소비해서 스킬을 배우거나 스킬 레벨을 업그레이드
+- 원하는 키에 매핑해서 장착후 사용가능
+
+#### 스킬 장착 예
+
+
 ---
 
 ## 데미지 및 전투 시스템
@@ -93,6 +109,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 
 - 계산된 결과는 `AttributeSet::PostExecute`에서 적용되며 이때 HitResult, Knockback, Die 처리가 이뤄집니다.
 
+#### DamegeEffectParameter 
+
+
 ---
 
 ## 레벨업 및 경험치 시스템
@@ -103,6 +122,9 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
   - `DA_LevelUpInfo`에 정의된 데이터 기반으로 `AttributePoint`, `SpellPoint` 지급
   - MMC 클래스가 레벨 기반으로 MaxHealth, MaxMana 재계산
 
+#### ListenForEvent 예
+
+
 ---
 
 ## 인벤토리 및 아이템 시스템
@@ -111,6 +133,10 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
 - 아이템 획득 경로: 몬스터 처치, 보스 처치 후 상자 생성, 상점 구입
 - 소비형 아이템은 단축키로 사용 가능하며 GE로 자신에게 효과 적용
 - 데이터는 `AuraPlayerState 클래스`에서 관리
+
+#### Store Widget
+
+
 
 ---
 
@@ -132,6 +158,8 @@ Stephen Ulibarri님의 Udemy 강의를 기반으로 학습 및 개발을 진행�
   - HitReact, Stun 등 상태 이상 여부
   - 거리 기반 공격 가능 여부
 - 행동: 이동, 대기, 근거리/원거리 공격, 소환 등
+
+#### BT Tree 예
 
 ---
 
